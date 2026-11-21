@@ -1,0 +1,14 @@
+@apiBaseUrl = http://localhost:5110
+@email = user@example.com
+@password = replace-with-the-user-password
+
+### Login and receive a local JWT
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}

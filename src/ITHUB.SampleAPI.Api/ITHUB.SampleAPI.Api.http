@@ -1,0 +1,88 @@
+@baseUrl = http://localhost:5110
+@adminEmail = admin@example.com
+@adminPassword = replace-with-the-bootstrap-admin-password
+@adminCreatedUserEmail = another-user@example.com
+@adminCreatedUserPassword = replace-with-another-local-password
+@activityCompletedStatusId = 6
+
+### Login as administrator
+# @name adminLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### List available activity statuses (IDs 4=Pending, 5=InProgress, 6=Completed)
+GET {{baseUrl}}/api/statuses?scope=Activity
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+
+### Admin creates a standard user account
+# @name adminCreatedUser
+POST {{baseUrl}}/api/users
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+Content-Type: application/json
+
+{
+  "email": "{{adminCreatedUserEmail}}",
+  "displayName": "Another Demo User",
+  "password": "{{adminCreatedUserPassword}}"
+}
+
+### Login as the user created by the administrator
+# @name userLogin
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminCreatedUserEmail}}",
+  "password": "{{adminCreatedUserPassword}}"
+}
+
+### Get the current user profile
+GET {{baseUrl}}/api/users/me
+Authorization: Bearer {{userLogin.response.body.$.accessToken}}
+
+### Admin creates a task assigned to the created user
+# @name createTask
+POST {{baseUrl}}/api/tasks
+Authorization: Bearer {{adminLogin.response.body.$.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Prepare the demo board",
+  "description": "Example task assigned by an administrator.",
+  "assignedUserId": {{adminCreatedUser.response.body.$.userId}}
+}
+
+### User adds an activity to their assigned task
+# @name createActivity
+POST {{baseUrl}}/api/tasks/{{createTask.response.body.$.id}}/activities
+Authorization: Bearer {{userLogin.response.body.$.accessToken}}
+Content-Type: application/json
+
+{
+  "title": "Review the requirements",
+  "description": "An activity owned by the assigned user."
+}
+
+### User changes the status of their activity
+PATCH {{baseUrl}}/api/tasks/{{createTask.response.body.$.id}}/activities/{{createActivity.response.body.$.id}}/status
+Authorization: Bearer {{userLogin.response.body.$.accessToken}}
+Content-Type: application/json
+
+{
+  "statusId": {{activityCompletedStatusId}}
+}
+
+### Get tasks visible to the current user
+GET {{baseUrl}}/api/tasks
+Authorization: Bearer {{userLogin.response.body.$.accessToken}}
+
+### Liveness
+GET {{baseUrl}}/api/health/live
+
+### Readiness (includes database connectivity)
+GET {{baseUrl}}/api/health/ready

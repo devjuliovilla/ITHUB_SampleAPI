@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Mapster" Version="10.0.13" />
+  </ItemGroup>
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ITHUB.SampleAPI.Common\ITHUB.SampleAPI.Common.csproj" />
+    <ProjectReference Include="..\ITHUB.SampleAPI.Domain\ITHUB.SampleAPI.Domain.csproj" />
+    <ProjectReference Include="..\ITHUB.SampleAPI.Persistence\ITHUB.SampleAPI.Persistence.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,19 @@
+@apiBaseUrl = http://localhost:5110
+@email = user@example.com
+@password = replace-with-the-user-password
+
+### Login as a standard user or administrator
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Get the current authenticated user
+GET {{apiBaseUrl}}/api/users/me
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json

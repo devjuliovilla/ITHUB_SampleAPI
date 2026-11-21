@@ -1,0 +1,16 @@
+<Project>
+  <Sdk Name="Microsoft.Build.Sql" Version="2.3.0" />
+  <PropertyGroup>
+    <Name>ITHUB.SampleAPI.Database</Name>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
+    <ModelCollation>1033,CI</ModelCollation>
+    <TargetFramework>netstandard2.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <Build Remove="PostDeployment.sql" />
+    <None Include="PostDeployment.sql" />
+    <PostDeploy Include="PostDeployment.sql" />
+    <Build Remove="deployment\*.sql" />
+    <None Include="deployment\*.sql" />
+  </ItemGroup>
+</Project>

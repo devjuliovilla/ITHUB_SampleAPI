@@ -1,0 +1,19 @@
+<Solution>
+  <Folder Name="/src/" />
+  <Folder Name="/src/Api/">
+    <Project Path="src/ITHUB.SampleAPI.Api/ITHUB.SampleAPI.Api.csproj" />
+  </Folder>
+  <Folder Name="/src/Common/">
+    <Project Path="src/ITHUB.SampleAPI.Common/ITHUB.SampleAPI.Common.csproj" />
+  </Folder>
+  <Folder Name="/src/Core/">
+    <Project Path="src/ITHUB.SampleAPI.Application/ITHUB.SampleAPI.Application.csproj" />
+    <Project Path="src/ITHUB.SampleAPI.Domain/ITHUB.SampleAPI.Domain.csproj" />
+  </Folder>
+  <Folder Name="/src/Infrastructure/">
+    <Project Path="src/ITHUB.SampleAPI.Persistence/ITHUB.SampleAPI.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/src/Tests/">
+    <Project Path="tests/ITHUB.SampleAPI.UnitTests/ITHUB.SampleAPI.UnitTests.csproj" />
+  </Folder>
+</Solution>

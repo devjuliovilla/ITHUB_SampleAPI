@@ -1,0 +1,33 @@
+@apiBaseUrl = http://localhost:5110
+@email = user@example.com
+@password = replace-with-the-user-password
+@taskId = 1
+@activityId = 1
+@statusId = 6
+
+### Login as the assigned user
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Get valid Activity status IDs
+# @name activityStatuses
+GET {{apiBaseUrl}}/api/statuses?scope=Activity
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+
+### Change the status of your own activity
+PATCH {{apiBaseUrl}}/api/tasks/{{taskId}}/activities/{{activityId}}/status
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "statusId": {{statusId}}
+}

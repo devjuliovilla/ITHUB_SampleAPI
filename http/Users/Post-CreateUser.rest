@@ -1,0 +1,29 @@
+@apiBaseUrl = http://localhost:5110
+@adminEmail = admin@example.com
+@adminPassword = replace-with-the-admin-password
+@email = another.user@example.com
+@displayName = Another Demo User
+@password = replace-with-a-local-password
+
+### Login as administrator
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### Create a standard User account (Admin only)
+POST {{apiBaseUrl}}/api/users
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "displayName": "{{displayName}}",
+  "password": "{{password}}"
+}

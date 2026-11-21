@@ -1,0 +1,20 @@
+@apiBaseUrl = http://localhost:5110
+@email = user@example.com
+@password = replace-with-the-user-password
+@scope = Activity
+
+### Login
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Get catalog statuses for Task or Activity
+GET {{apiBaseUrl}}/api/statuses?scope={{scope}}
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json

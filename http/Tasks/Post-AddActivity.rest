@@ -1,0 +1,28 @@
+@apiBaseUrl = http://localhost:5110
+@email = user@example.com
+@password = replace-with-the-user-password
+@taskId = 1
+@title = Review the requirements
+@description = Activity added by the assigned user.
+
+### Login as the assigned user
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{email}}",
+  "password": "{{password}}"
+}
+
+### Add an activity to an assigned task
+POST {{apiBaseUrl}}/api/tasks/{{taskId}}/activities
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "{{title}}",
+  "description": "{{description}}"
+}

@@ -1,0 +1,14 @@
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
+*.dacpac
+*.publish.xml
+*.pubxml
+*.publishsettings
+TestResults/
+src/ITHUB.SampleAPI.Api/appsettings.Production.json
+.config/db-info.md
+database/deployment/create-sampleapi-schema.sql
+database/deployment/update-sampleapi-schema.sql

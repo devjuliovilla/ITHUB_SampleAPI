@@ -1,0 +1,629 @@
+{
+  "info": {
+    "_postman_id": "9655cc58-7b4e-3555-8422-c8f47b6811b4",
+    "name": "ITHUB_SampleAPI",
+    "description": "Generada con rest2postman a partir de archivos .rest/.http.\n\n1. Importa también el environment `ITHUB_SampleAPI (local)`, selecciónalo y llena: `email`, `password`, `adminPassword`.\n2. Ejecuta primero: \"Login\", \"Login as administrator\".",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "id": "71aafe94-b8a8-3729-a284-dacaee7e2bd9",
+      "name": "Login",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Generado por rest2postman: guarda datos de la respuesta para usarlos en los demás requests.",
+              "{",
+              "    const responseText = pm.response.text();",
+              "    let responseBody = responseText;",
+              "    try { responseBody = JSON.parse(responseText); } catch (e) { }",
+              "    function pick(obj, path) { return path.reduce((o, k) => (o === null || o === undefined) ? undefined : o[k], obj); }",
+              "    function save(name, value) {",
+              "        if (value !== null && typeof value === 'object') { value = JSON.stringify(value); }",
+              "        pm.collectionVariables.set(name, value);",
+              "        if (pm.environment.has(name)) { pm.environment.set(name, value); }",
+              "        pm.test('Variable ' + name + ' guardada', () => pm.expect(value, name).to.not.be.oneOf([undefined, null, '']));",
+              "    }",
+              "    save(\"token\", pick(responseBody, [\"accessToken\"]));",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{apiBaseUrl}}/api/auth/login",
+          "host": [
+            "{{apiBaseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Ejecuta este request primero. Guarda en variables de la colección: `token`.\n\nOrigen: `Statuses/Get-List.rest` (línea 8)"
+      },
+      "response": []
+    },
+    {
+      "id": "abd144b4-f46a-3e97-9011-dae15338241d",
+      "name": "Login as administrator",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "// Generado por rest2postman: guarda datos de la respuesta para usarlos en los demás requests.",
+              "{",
+              "    const responseText = pm.response.text();",
+              "    let responseBody = responseText;",
+              "    try { responseBody = JSON.parse(responseText); } catch (e) { }",
+              "    function pick(obj, path) { return path.reduce((o, k) => (o === null || o === undefined) ? undefined : o[k], obj); }",
+              "    function save(name, value) {",
+              "        if (value !== null && typeof value === 'object') { value = JSON.stringify(value); }",
+              "        pm.collectionVariables.set(name, value);",
+              "        if (pm.environment.has(name)) { pm.environment.set(name, value); }",
+              "        pm.test('Variable ' + name + ' guardada', () => pm.expect(value, name).to.not.be.oneOf([undefined, null, '']));",
+              "    }",
+              "    save(\"login_accessToken\", pick(responseBody, [\"accessToken\"]));",
+              "}"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "auth": {
+          "type": "noauth"
+        },
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"email\": \"{{adminEmail}}\",\n  \"password\": \"{{adminPassword}}\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{apiBaseUrl}}/api/auth/login",
+          "host": [
+            "{{apiBaseUrl}}"
+          ],
+          "path": [
+            "api",
+            "auth",
+            "login"
+          ]
+        },
+        "description": "Ejecuta este request primero. Guarda en variables de la colección: `login_accessToken`.\n\nOrigen: `Tasks/Post-Create.rest` (línea 10)"
+      },
+      "response": []
+    },
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "id": "b92c002d-b9fc-33d3-9241-bda65fc57ba1",
+          "name": "Login and receive a local JWT",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/auth/login",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "auth",
+                "login"
+              ]
+            },
+            "description": "Origen: `Auth/Post-Login.rest` (línea 7)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health",
+      "item": [
+        {
+          "id": "54ffca95-c5de-309e-9d82-a96dfe198efa",
+          "name": "Liveness check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/health/live",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health",
+                "live"
+              ]
+            },
+            "description": "Origen: `Health/Get-Live.rest` (línea 4)"
+          },
+          "response": []
+        },
+        {
+          "id": "83420fbb-960d-3c3a-9ef3-7828aaa2f103",
+          "name": "Readiness and SQL Server connectivity check",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/health/ready",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "health",
+                "ready"
+              ]
+            },
+            "description": "Origen: `Health/Get-Ready.rest` (línea 4)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Statuses",
+      "item": [
+        {
+          "id": "64b2c105-c767-3e89-bda0-383a77779be3",
+          "name": "Get catalog statuses for Task or Activity",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/statuses?scope=Activity",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "statuses"
+              ],
+              "query": [
+                {
+                  "key": "scope",
+                  "value": "Activity"
+                }
+              ]
+            },
+            "description": "Origen: `Statuses/Get-List.rest` (línea 18)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Tasks",
+      "item": [
+        {
+          "id": "33558faa-756d-3fe2-9d7a-dcc3f496d147",
+          "name": "Get an assigned task",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/tasks/{{taskId}}",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tasks",
+                "{{taskId}}"
+              ]
+            },
+            "description": "Origen: `Tasks/Get-ById.rest` (línea 18)"
+          },
+          "response": []
+        },
+        {
+          "id": "6793c3e5-2a68-35ee-a483-ab845ea23935",
+          "name": "List tasks visible to the user",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/tasks",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tasks"
+              ]
+            },
+            "description": "Origen: `Tasks/Get-List.rest` (línea 17)"
+          },
+          "response": []
+        },
+        {
+          "name": "Patch-UpdateActivityStatus",
+          "description": "Origen: `Tasks/Patch-UpdateActivityStatus.rest`",
+          "item": [
+            {
+              "id": "1e4a8482-df96-3da9-be64-cfa5148a7614",
+              "name": "Get valid Activity status IDs",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{apiBaseUrl}}/api/statuses?scope=Activity",
+                  "host": [
+                    "{{apiBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "statuses"
+                  ],
+                  "query": [
+                    {
+                      "key": "scope",
+                      "value": "Activity"
+                    }
+                  ]
+                },
+                "description": "Origen: `Tasks/Patch-UpdateActivityStatus.rest` (línea 21)"
+              },
+              "response": []
+            },
+            {
+              "id": "33d5c3f0-1e9b-3053-8798-2cb2dd03d894",
+              "name": "Change the status of your own activity",
+              "request": {
+                "method": "PATCH",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"statusId\": {{statusId}}\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{apiBaseUrl}}/api/tasks/{{taskId}}/activities/{{activityId}}/status",
+                  "host": [
+                    "{{apiBaseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "tasks",
+                    "{{taskId}}",
+                    "activities",
+                    "{{activityId}}",
+                    "status"
+                  ]
+                },
+                "description": "Origen: `Tasks/Patch-UpdateActivityStatus.rest` (línea 26)"
+              },
+              "response": []
+            }
+          ]
+        },
+        {
+          "id": "7636976d-653b-3334-b144-4d394200b57e",
+          "name": "Add an activity to an assigned task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Review the requirements\",\n  \"description\": \"Activity added by the assigned user.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/tasks/{{taskId}}/activities",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tasks",
+                "{{taskId}}",
+                "activities"
+              ]
+            },
+            "description": "Origen: `Tasks/Post-AddActivity.rest` (línea 20)"
+          },
+          "response": []
+        },
+        {
+          "id": "462b2942-2240-31ad-b239-e1abeeeb152e",
+          "name": "Create a task assigned to an active User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{login_accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Prepare the demo board\",\n  \"description\": \"Example task assigned by an administrator.\",\n  \"assignedUserId\": {{assignedUserId}}\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/tasks",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "tasks"
+              ]
+            },
+            "description": "Origen: `Tasks/Post-Create.rest` (línea 20)"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "id": "15ff5f02-86c7-33d1-988f-3fb822649e73",
+          "name": "Get the current authenticated user",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/users/me",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "me"
+              ]
+            },
+            "description": "Origen: `Users/Get-Me.rest` (línea 17)"
+          },
+          "response": []
+        },
+        {
+          "id": "64367a15-fd13-3ef8-9921-015d2e3e6c36",
+          "name": "Create a standard User account (Admin only)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{login_accessToken}}",
+                "type": "text"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "auth": {
+              "type": "noauth"
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"displayName\": \"Another Demo User\",\n  \"password\": \"{{password}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{apiBaseUrl}}/api/users",
+              "host": [
+                "{{apiBaseUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            },
+            "description": "Origen: `Users/Post-CreateUser.rest` (línea 20)"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "token",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "login_accessToken",
+      "value": "",
+      "type": "string"
+    }
+  ]
+}

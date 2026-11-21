@@ -1,0 +1,29 @@
+@apiBaseUrl = http://localhost:5110
+@adminEmail = admin@example.com
+@adminPassword = replace-with-the-admin-password
+@assignedUserId = 2
+@title = Prepare the demo board
+@description = Example task assigned by an administrator.
+
+### Login as administrator
+# @name login
+POST {{apiBaseUrl}}/api/auth/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### Create a task assigned to an active User
+POST {{apiBaseUrl}}/api/tasks
+Authorization: Bearer {{login.response.body.$.accessToken}}
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "{{title}}",
+  "description": "{{description}}",
+  "assignedUserId": {{assignedUserId}}
+}
